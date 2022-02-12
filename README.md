@@ -1,8 +1,6 @@
-# citasveterinario
+# Citas Veterinario
 
-
-# Guia para montar el Backend en Linux-Ubuntu
-
+Proyecto de aprendizaje - react native
 Primero debemos verificar que este instalado todo lo necesario para el ambiente react-native en Windows.
 
 ```bash
