@@ -6,17 +6,18 @@ import Paciente from './src/components/Paciente';
 
 const App = () => {
   //Hooks se colocan aca
-  const [modalVisible, setModalVisible] = useState(false)
-  const [pacientes, setPacientes] = useState([])
-  const [paciente, setPaciente] = useState({})
-  const [modalPaciente, setModalPaciente] = useState(false)
+  const [ modalVisible, setModalVisible] = useState(false)
+  const [ pacientes, setPacientes] = useState([])
+  const [ paciente, setPaciente] = useState({})
+  const [ modalPaciente, setModalPaciente] = useState(false)
   
+  //editar paciente
   const pacienteEditar = id => {
     const pacienteEditar = pacientes.filter(paciente => paciente.id === id)
 
     setPaciente(pacienteEditar[0])
   }
-
+  //eliminar paciente
   const pacienteEliminar = id => {
     Alert.alert(
       '¿Deseas Eliminar este paciente?',
@@ -24,6 +25,7 @@ const App = () => {
       [
         {text: 'Cancelar'},
         {text: 'Eliminar', onPress: () => {
+          //filtramos el array
           const pacientesActualizados = pacientes.filter( pacientesState => pacientesState.id !== id)
           
           setPacientes(pacientesActualizados)
@@ -41,7 +43,8 @@ const App = () => {
       <Text style={styles.titulo}>Administrador de Citas{' '}
         <Text style={styles.tituloBold}>Veterinaria</Text>  
       </Text>
-
+      
+      {/* Boton nueva cita , activa modal */}
       <Pressable
         style={styles.btnNuevaCita}
         onPress={ () => {
@@ -53,6 +56,7 @@ const App = () => {
         >Nueva Cita</Text>
       </Pressable>
 
+      {/* Contenido de pantalla principal */}
       {pacientes.length === 0 ? 
         <Text style={styles.noPacientes}>No hay pacientes aun</Text> : 
         <FlatList
@@ -74,16 +78,18 @@ const App = () => {
           }}
         />
       }
+      {/* Formulario que se activa en modal de boton */}
       {modalVisible && (
         <Formulario
           pacientes = { pacientes }
-          setPacientes = {setPacientes}          
+          setPacientes = { setPacientes }          
           paciente = { paciente }
           setPaciente = { setPaciente }
           cerrarModal = { cerrarModal }
         />
       )}
-  
+
+      {/* Modal que se activa en venta de paciente */}
       <Modal
         visible={modalPaciente}
         animationType='fade'

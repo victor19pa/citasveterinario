@@ -17,6 +17,6 @@ node -v && npm -v
 
 movernos al **directorio** de nuestro proyecto.
 ```bash
-ejecutar
-```
 **npx react-native run-android**
+```
+

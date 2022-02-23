@@ -10,15 +10,16 @@ const Formulario = ({
     paciente: pacienteObj,
     setPaciente: setPacienteApp
 }) => {
+    //Hooks
+    const [ paciente, setPaciente ] = useState('')
+    const [ id, setId ] = useState('')
+    const [ propietario, setPropietario ] = useState('')
+    const [ telefono, setTelefono ] = useState('')
+    const [ email, setEmail ] = useState('')
+    const [ sintomas, setSintomas ] = useState('')
+    const [ fecha, setFecha ] = useState(new Date())
 
-    const [paciente, setPaciente] = useState('')
-    const [id, setId] = useState('')
-    const [propietario, setPropietario] = useState('')
-    const [telefono, setTelefono] = useState('')
-    const [email, setEmail] = useState('')
-    const [sintomas, setSintomas] = useState('')
-    const [fecha, setFecha] = useState(new Date())
-
+    //Se evalua si hay paciente activo o no para set por default
     useEffect(() => {
         if(Object.keys(pacienteObj).length > 0 ) {
             setId(pacienteObj.id)
@@ -62,9 +63,9 @@ const Formulario = ({
             nuevoPaciente.id = Date.now()
             setPacientes([...pacientes, nuevoPaciente])
         }
-        
+        //viene de app.js para cerrar modal
         cerrarModal()
-
+        //regresamos el formulario a vacio
         setId('')
         setPaciente('')
         setPropietario('')
@@ -82,13 +83,14 @@ const Formulario = ({
         >
             <SafeAreaView style={styles.contenido}>
                 <ScrollView>
+                    {/* Titulo condicional */}
                     <Text style={styles.titulo}>
                         {pacienteObj.id ? 'Editar' : 'Nueva'}{' '}
                         <Text style={styles.tituloBold}>
                             Cita
                         </Text>
                     </Text>
-
+                    {/* Boton cancelar */}
                     <Pressable 
                         style={styles.btnCancelar}
                         onLongPress={ () => {
@@ -106,6 +108,7 @@ const Formulario = ({
                         <Text style={styles.btnCancelarTxt}>Cancelar</Text>
                     </Pressable>
 
+                    {/* Input Paciente */}
                     <View style={styles.campo}>
                         <Text style={styles.label}>Paciente</Text>
                         <TextInput
@@ -116,7 +119,7 @@ const Formulario = ({
                             onChangeText={ setPaciente }
                         />
                     </View>
-
+                    {/* Input Propietario */}
                     <View style={styles.campo}>
                         <Text style={styles.label}>Propietario</Text>
                         <TextInput
@@ -127,7 +130,7 @@ const Formulario = ({
                             onChangeText={ setPropietario }
                         />
                     </View>
-
+                    {/* Input Email */}
                     <View style={styles.campo}>
                         <Text style={styles.label}>Email</Text>
                         <TextInput
@@ -139,7 +142,7 @@ const Formulario = ({
                             onChangeText={ setEmail }
                         />
                     </View>
-
+                    {/* Input Telefono */}
                     <View style={styles.campo}>
                         <Text style={styles.label}>Telefono</Text>
                         <TextInput
@@ -152,7 +155,7 @@ const Formulario = ({
                             maxLength={11}
                         />
                     </View>
-
+                    {/* Input Fecha Alta */}
                     <View style={styles.campo}>
                         <Text style={styles.label}>Fecha Alta</Text>
                         <View style={styles.fechaContenedor}>
@@ -163,7 +166,7 @@ const Formulario = ({
                             />
                         </View>
                     </View>
-
+                    {/* Input Sintomas */}
                     <View style={styles.campo}>
                         <Text style={styles.label}>Sintomas</Text>
                         <TextInput
@@ -174,7 +177,7 @@ const Formulario = ({
                             numberOfLines={10}
                         />
                     </View>
-
+                    {/* Boton condicional editar/agregar cita */}
                     <Pressable
                         style={styles.btnNuevaCita}
                         onPress={handleCita}

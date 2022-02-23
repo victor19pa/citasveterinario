@@ -3,13 +3,14 @@ import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { formatearFecha } from '../helpers'
 
 const InformacionPaciente = ({paciente, setModalPaciente, setPaciente}) => {
-    console.log("paciente: ", paciente)
+    //console.log("paciente: ", paciente)
     return (
         <SafeAreaView style={styles.contenedor}>
+            {/* Titulo */}
             <Text style={styles.titulo}>Informacion {' '}
                 <Text style={styles.tituloBold}>Paciente</Text>
             </Text>
-
+            {/* Boton Cerrar */}
             <View>
                 <Pressable
                     onLongPress={() => {
@@ -20,12 +21,13 @@ const InformacionPaciente = ({paciente, setModalPaciente, setPaciente}) => {
                 >
                     <Text
                         style={styles.btnCerrarTxt}
-                    >Cerrar</Text>
+                    >
+                        Cerrar
+                    </Text>
                 </Pressable>
             </View>
-            <View
-                style={styles.contenido}
-            >   
+
+            <View style={styles.contenido}>   
                 <View style={styles.campo}>
                     <Text style={styles.label}>Nombre: </Text>
                     <Text style={styles.valor}>{paciente.paciente}</Text>
