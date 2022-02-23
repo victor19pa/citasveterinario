@@ -1,15 +1,32 @@
-import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, StyleSheet, Pressable, Modal, Button, FlatList, Alert } from 'react-native';
 import Formulario from './src/components/Formulario';
 import InformacionPaciente from './src/components/InformacionPaciente';
 import Paciente from './src/components/Paciente';
 
+
 const App = () => {
   //Hooks se colocan aca
   const [ modalVisible, setModalVisible] = useState(false)
   const [ pacientes, setPacientes] = useState([])
+
   const [ paciente, setPaciente] = useState({})
   const [ modalPaciente, setModalPaciente] = useState(false)
+
+  useEffect(() => {
+    const obtenerCitasStorage = async () => {
+      try {
+        const citasStorage = await AsyncStorage.getItem('citas')
+        if(citasStorage){
+          setPacientes(JSON.parse(citasStorage))
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    obtenerCitasStorage();
+  },[])
   
   //editar paciente
   const pacienteEditar = id => {
@@ -29,6 +46,7 @@ const App = () => {
           const pacientesActualizados = pacientes.filter( pacientesState => pacientesState.id !== id)
           
           setPacientes(pacientesActualizados)
+          guardarCitasStorage(JSON.stringify(pacientesActualizados))
         }}
       ]
     )
@@ -36,6 +54,15 @@ const App = () => {
 
   const cerrarModal = () => {
     setModalVisible(false)
+  }
+
+  //almacenar citas en storage
+  const guardarCitasStorage = async (citasJSON) =>{
+    try {
+      await AsyncStorage.setItem('citas', citasJSON)
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -86,6 +113,7 @@ const App = () => {
           paciente = { paciente }
           setPaciente = { setPaciente }
           cerrarModal = { cerrarModal }
+          guardarCitasStorage = { guardarCitasStorage }
         />
       )}
 

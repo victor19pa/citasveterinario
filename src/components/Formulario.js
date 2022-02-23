@@ -8,7 +8,8 @@ const Formulario = ({
     setPacientes, 
     pacientes, 
     paciente: pacienteObj,
-    setPaciente: setPacienteApp
+    setPaciente: setPacienteApp,
+    guardarCitasStorage
 }) => {
     //Hooks
     const [ paciente, setPaciente ] = useState('')
@@ -58,6 +59,8 @@ const Formulario = ({
             const pacientesActualizados = pacientes.map( pacienteState => pacienteState.id === nuevoPaciente.id ? nuevoPaciente : pacienteState)
             setPacientes(pacientesActualizados)
             setPacienteApp({})
+            //agreegando al storage
+            guardarCitasStorage(JSON.stringify(pacientesActualizados))
         }else{
             //nuevo registro
             nuevoPaciente.id = Date.now()
